@@ -1,0 +1,50 @@
+#results
+prefix : "fecil_B50inc10_resnet32"
+
+#dataset
+dataset : "cifar100"
+shuffle : true
+init_cls : 50
+cls_per_increment : 5
+batch_size : 128
+num_workers : 8
+seed : [1993]
+
+#memory
+memory_size : 2000
+memory_per_class : 20
+fixed_memory: True
+
+#model
+model_name : "fecil"
+convnet_type : "resnet32"
+device : ["0"]
+
+#training improvements
+warmup : True
+warmup_epochs : 10
+cosine_scheduler : True
+
+#initial training
+init_epochs : 200
+init_lr : 0.1
+init_milestones : [60,120,170]
+init_lr_decay : 0.1
+init_weight_decay : 0.0005
+
+#incremental trainings
+exp_epochs : 200
+compress_epochs : 200
+lrate : 0.1
+milestones : [60,120,170]
+lrate_decay : 0.1
+weight_decay : 0.0005
+T : 2
+
+#bias correction of compressed model
+H_big_bias_correction : WA
+H_bias_correction : WA
+
+#mixup
+mix_func : "cutmix"
+alpha_mixup : .2
