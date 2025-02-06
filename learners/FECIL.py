@@ -198,15 +198,9 @@ class FECIL(BaseLearner):
 			correct, total = 0, 0
 			for i, (_, inputs, targets) in enumerate(train_loader):
 				inputs, targets = inputs.to(self._device), targets.to(self._device)
-				if(self.args.init_mixup):
-					inputs,y,lam = self.mixup.forward(inputs, targets)
-					targets = torch.max(y, dim=1)[1]
-					logits=self._network(inputs)["logits"]
-					loss=CEsoft_loss(logits,y)
-				else:
-					outputs = self._network(inputs)
-					logits = outputs['logits']
-					loss=F.cross_entropy(logits,targets)
+				outputs = self._network(inputs)
+				logits = outputs['logits']
+				loss=F.cross_entropy(logits,targets)
 
 				loss_log["loss_tot"] = loss
 
