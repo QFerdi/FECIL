@@ -9,9 +9,9 @@ from torchvision import transforms
 from torch.nn import functional as F
 from torch.utils.data import DataLoader
 from learners.base import BaseLearner
-from utils.inc_net import DualFeatureNet, DualFeatureNetExp, IncrementalNet
+from utils.inc_net import DualFeatureNet, IncrementalNet
 from losses.base import KD_loss, KLdiv_loss, CEsoft_loss
-from utils.mixup import FairMixup, RehearsalMixup, Mixup
+from utils.mixup import RehearsalMixup
 from utils.data_manager import InfiniteLoader
 from utils.toolkit import count_parameters, target2onehot, tensor2numpy
 from utils.metrics_factory import topk_accuracy, newOld_accuracy
