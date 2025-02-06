@@ -230,10 +230,8 @@ class FECIL(BaseLearner):
 		#train
 		logging.info("nb_batches per epoch : {}".format(len(train_loader)))
 		prog_bar = tqdm(range(self.args.exp_epochs))
-		if(self.args.expansion_mixup):
-			Lce = CEsoft_loss
-		else:
-			Lce = F.cross_entropy
+
+		Lce = F.cross_entropy
 		loss_log = {}
 		for _, epoch in enumerate(prog_bar):
 			if len(self._multiple_gpus) > 1:
@@ -246,14 +244,8 @@ class FECIL(BaseLearner):
 			correct, total = 0, 0
 			for i, (_, inputs, targets) in enumerate(train_loader):
 				inputs, targets = inputs.to(self._device), targets.to(self._device)
-				if(self.args.expansion_mixup):
-					inputs,targets,lam = self.rehearsal_mixup.forward(inputs, targets)
-					aux_targets = targets.clone()
-					aux_targets = torch.cat((torch.sum(aux_targets[:, :self._known_classes], dim=1, keepdim=True),
-						                        aux_targets[:,self._known_classes:]), dim=1)
-				else:
-					aux_targets = targets.clone()
-					aux_targets=torch.where(aux_targets-self._known_classes+1>0,aux_targets-self._known_classes+1,0)
+				aux_targets = targets.clone()
+				aux_targets=torch.where(aux_targets-self._known_classes+1>0,aux_targets-self._known_classes+1,0)
 
 				outputs = self._new_net(inputs)
 				logits=outputs["logits"]
