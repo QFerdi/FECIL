@@ -1,7 +1,7 @@
 # Introduction
 This is the official pytorch implementation of the FECIL method for class incremental learning. This impementation is based on the PyCIL toolbox [1].
 
-The FECIL method trains incrementally a CNN model by first expanding its feature extractor to adapt to new classes and then leverages the Rehearsal-Cutmix augmentation to reduce catastrophic forgetting during the compression step that compresses the model back to its original size.
+The FECIL method trains a CNN model incrementally by first expanding its feature extractor to accommodate new classes. It then applies the Rehearsal-Cutmix augmentation to mitigate catastrophic forgetting during the subsequent compression phase, which reduces the model back to its original size.
 
 # Requirements
 
