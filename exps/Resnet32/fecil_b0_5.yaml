@@ -4,8 +4,8 @@ prefix : "fecil_B0inc5_resnet32"
 #dataset
 dataset : "cifar100"
 shuffle : true
-init_cls : 10
-cls_per_increment : 10
+init_cls : 5
+cls_per_increment : 5
 batch_size : 128
 num_workers : 8
 seed : [1993]

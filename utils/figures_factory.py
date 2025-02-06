@@ -3,8 +3,6 @@ from scipy.spatial import distance
 import sklearn.metrics
 import numpy as np
 from matplotlib import cm
-#import seaborn as sns
-#sns.set()#set default figure params for better graphs
 import matplotlib.pyplot as plt
 
 def conf_mat(preds, labels, classes_names=None, log_scale=False):

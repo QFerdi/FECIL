@@ -20,8 +20,8 @@ def load_yaml(settings_path):
 
 
 def setup_parser():
-    parser = argparse.ArgumentParser(description='multiple continual learning algorithms.')
-    parser.add_argument('--config', type=str, default='./exps/finetune.yaml',
+    parser = argparse.ArgumentParser(description='Fecil algorithm')
+    parser.add_argument('--config', type=str, default='./exps/Resnet18/fecil_b0_10.yaml',
                         help='Yaml file of settings.')
     parser.add_argument('--tb', type=bool, default=True,
                         help='enable or disable tensorboard logs')

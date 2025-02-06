@@ -3,8 +3,7 @@ import numpy as np
 from PIL import Image
 from torch.utils.data import Dataset
 from torchvision import transforms
-from utils.data import iCIFAR10, iCIFAR100, iImageNet100, iImageNet1000, iNavalGroup
-from utils.custom_transforms import N_augmentedViewsTransform, Cutout
+from utils.data import iCIFAR10, iCIFAR100, iImageNet100, iImageNet1000
 
 class DataManager(object):
 	def __init__(self, dataset_name, shuffle, seed, init_cls, cls_per_increment):
@@ -18,24 +17,12 @@ class DataManager(object):
 		if offset > 0:
 			self._increments.append(offset)
 
-		#contrast sampling params
-		self._nb_views = 1
-		self._contrast_trsf = []
-
-
 	@property
 	def nb_tasks(self):
 		return len(self._increments)
 
 	def get_task_size(self, task):
 		return self._increments[task]
-
-	def set_contrast_params(self, nb_contrastive_views, contrast_transforms=[]):
-		"""parameters used for contrastive sampling, if enabled"""
-		self._nb_views = nb_contrastive_views
-		self._contrast_trsf = contrast_transforms
-		logging.info("contrastive sampling of "+str(self._nb_views)+" views")
-		logging.info("contrastive transforms : \n"+str([*self._train_trsf, *self._contrast_trsf, *self._common_trsf]))
 
 	def get_dataset(self, indices, source, mode, max_data_per_class=None, appendent=None, ret_data=False):
 		if source == 'train':
@@ -213,8 +200,6 @@ def _get_idata(dataset_name):
 		return iImageNet1000()
 	elif name == "imagenet100":
 		return iImageNet100()
-	elif name == "navalgroup":
-		return iNavalGroup()
 	else:
 		raise NotImplementedError('Unknown dataset {}.'.format(dataset_name))
 
